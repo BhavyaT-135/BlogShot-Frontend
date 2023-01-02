@@ -1,0 +1,1 @@
+export const serverUrl = "https://blog-server-nine-sooty.vercel.app/api";

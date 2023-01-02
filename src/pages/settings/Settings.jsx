@@ -4,6 +4,7 @@ import './settings.css'
 import { Context } from '../../context/Context'
 import { useContext, useState } from 'react';
 import axios from 'axios';
+import { serverUrl } from '../../constants';
 
 export default function Settings() {
 
@@ -30,11 +31,11 @@ export default function Settings() {
       data.append("file", file);
       updatedUser.profilePic = filename;
       try {
-        await axios.post("/upload", data);  
+        await axios.post(`${serverUrl}/upload`, data);  
       } catch (err) {}
     }
     try {
-        const res = await axios.put("/users/" + user._id, updatedUser);
+        const res = await axios.put(`${serverUrl}/users/` + user._id, updatedUser);
         setSuccess(true);
         dispatch({type: "UPDATE_SUCCESS", payload: res.data})
     } catch (err) {

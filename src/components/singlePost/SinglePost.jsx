@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from '../../context/Context'
 import scenery from "../../assets/scenery.jpg";
+import { serverUrl } from "../../constants";
 
 export default function SinglePost() {
 
@@ -20,7 +21,7 @@ export default function SinglePost() {
 
     useEffect(() => {
         const getPost = async () => {
-            const res = await axios.get("/posts/" + path);
+            const res = await axios.get(`${serverUrl}/posts/` + path);
             setPost(res.data);
             setTitle(res.data.title);
             setDesc(res.data.desc);
@@ -30,7 +31,7 @@ export default function SinglePost() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete("/posts/" + path, {
+            await axios.delete(`${serverUrl}/posts/` + path, {
                 data: { username: user.username }});
             window.location.replace("/")
         } catch (error) {}
@@ -38,7 +39,7 @@ export default function SinglePost() {
 
     const handleUpdate = async () => {
         try {
-            await axios.put("/posts/" + path, {
+            await axios.put(`${serverUrl}/posts/` + path, {
                 username: user.username, title, desc
             });
             setUpdateMode(false)
